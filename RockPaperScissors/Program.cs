@@ -1,5 +1,6 @@
 using RockPaperScissors_Bll.Services;
 using RockPaperScissors_Dll;
+using System.Text.Json.Serialization;
 
 namespace RockPaperScissors
 {
@@ -13,7 +14,12 @@ namespace RockPaperScissors
             builder.Services.AddSingleton<DbContext>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IPlayService, PlayeService>();
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(
+                    new JsonStringEnumConverter()
+                );
+            });
 
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options =>
@@ -23,10 +29,23 @@ namespace RockPaperScissors
                 options.Cookie.IsEssential = true;
             });
 
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.EnableAnnotations();
+                var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
+
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+            else
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.

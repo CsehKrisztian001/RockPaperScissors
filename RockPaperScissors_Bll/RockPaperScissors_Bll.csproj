@@ -7,7 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="8.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\RockPaperScissors_Dll\RockPaperScissors_Dll.csproj" />
   </ItemGroup>
+
+	<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>APITester</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
 
 </Project>
