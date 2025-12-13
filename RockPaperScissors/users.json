@@ -3,8 +3,16 @@
     "Id": 1,
     "Name": "Krisztián",
     "Password": "teszt",
-    "Won": 56,
+    "Won": 57,
     "Lost": 56,
-    "Draw": 49
+    "Draw": 50
+  },
+  {
+    "Id": 2,
+    "Name": "Ambrus",
+    "Password": "teszt",
+    "Won": 0,
+    "Lost": 2,
+    "Draw": 0
   }
 ]

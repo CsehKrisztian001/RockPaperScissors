@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Swashbuckle.AspNetCore.Annotations;
 
 namespace RockPaperScissors_Dll.Enums
 {
+    [SwaggerSchema(Description = "Kő–papír–olló játék lehetséges végeredményei.")]
     public enum GameResult
     {
         Won = 0,
