@@ -1,0 +1,103 @@
+﻿@using RockPaperScissors_Bll.Models
+@model StatsViewModel
+
+<style>
+    .card {
+        width: 420px;
+        margin: 80px auto;
+        padding: 24px;
+        background: #f9fafb;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+        font-family: Arial, sans-serif;
+    }
+
+    .title {
+        font-size: 22px;
+        font-weight: 700;
+        margin: 0 0 12px 0;
+        color: #111827;
+        text-align: center;
+    }
+
+    .stats {
+        margin: 16px 0 20px 0;
+        padding: 12px;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+    }
+
+    .row {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+        color: #374151;
+    }
+
+    .btn-row {
+        display: flex;
+        gap: 10px;
+        margin-top: 14px;
+    }
+
+    .btn {
+        flex: 1;
+        padding: 12px 10px;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        color: white;
+        transition: transform 0.05s ease-in-out, opacity 0.15s;
+    }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn:hover {
+            opacity: 0.92;
+        }
+
+    .rock {
+        background: #2563eb;
+    }
+
+    .paper {
+        background: #16a34a;
+    }
+
+    .scissors {
+        background: #dc2626;
+    }
+
+    .lastGame {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<div class="card">
+    <div class="title">@Model.User.Name</div>
+
+    <div class="stats">
+        <div class="row"><span>Győzelmek</span><strong>@Model.User.Won</strong></div>
+        <div class="row"><span>Vereségek</span><strong>@Model.User.Lost</strong></div>
+        <div class="row"><span>Döntetlenek</span><strong>@Model.User.Draw</strong></div>
+    </div>
+
+    <div class="lastGame">
+        <strong>@Model.LastGameStatus</strong>
+    </div>
+
+    <form asp-action="Play" method="post">
+        <div class="btn-row">
+            <button class="btn rock" type="submit" name="choice" value="rock">Kő</button>
+            <button class="btn paper" type="submit" name="choice" value="paper">Papír</button>
+            <button class="btn scissors" type="submit" name="choice" value="scissors">Olló</button>
+        </div>
+    </form>
+</div>

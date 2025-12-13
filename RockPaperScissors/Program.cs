@@ -1,3 +1,6 @@
+using RockPaperScissors_Bll.Services;
+using RockPaperScissors_Dll;
+
 namespace RockPaperScissors
 {
     public class Program
@@ -7,7 +10,18 @@ namespace RockPaperScissors
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddSingleton<DbContext>();
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IPlayService, PlayeService>();
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
             var app = builder.Build();
 
@@ -23,6 +37,8 @@ namespace RockPaperScissors
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSession();
 
             app.UseAuthorization();
 
